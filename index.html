@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Form</title>
+	</head>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		label {
+			font-size: medium;
+		}
+		html,
+		body {
+			height: 100%;
+		}
+		.outer {
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		form {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			gap: 20px;
+		}
+		input {
+			width: 200px;
+			padding-inline: 12px;
+			padding-block: 8px;
+			font-weight: 600;
+		}
+		button {
+			width: 230px;
+			padding-inline: 12px;
+			padding-block: 8px;
+			cursor: pointer;
+			background-color: oklch(54.6% 0.245 262.881);
+			font-weight: 700;
+			font-size: medium;
+		}
+	</style>
+	<body>
+		<div class="outer">
+			<form action="/action.php">
+				<h1>Welcome Back</h1>
+				<input type="email" placeholder="Email" />
+				<input type="password" placeholder="Password" />
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+	</body>
+</html>
