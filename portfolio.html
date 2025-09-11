@@ -36,11 +36,32 @@
 			.section {
 				margin-bottom: 30px;
 			}
-			ul {
+			.projects {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				gap: 20px;
 				padding-left: 20px;
 			}
 			.projects li {
+				list-style-type: none;
 				margin-bottom: 10px;
+			}
+			.projects li div {
+				width: 200px;
+				height: 100px;
+				background-color: #f0f2a6;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding: 40px;
+				border-radius: 30px;
+				font-size: larger;
+				transition: all 0.3s ease-in-out;
+				cursor: pointer;
+			}
+			.projects li div:hover {
+				scale: 1.05;
 			}
 			footer {
 				text-align: center;
@@ -78,16 +99,19 @@
 				<h2>Projects</h2>
 				<ul class="projects">
 					<li>
-						<strong>FlickCycle</strong> - A responsive streaming
-						platform using HTML and CSS.
+						<div>
+							<strong>FlickCycle</strong>
+						</div>
 					</li>
 					<li>
-						<strong>Portfolio Website</strong> - My own portfolio
-						site showcasing my work.
+						<div>
+							<strong>Portfolio Website</strong>
+						</div>
 					</li>
 					<li>
-						<strong>Task Manager App</strong> - A simple to-do app
-						using React.
+						<div>
+							<strong>Task Manager App</strong>
+						</div>
 					</li>
 				</ul>
 			</section>
