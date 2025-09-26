@@ -4,11 +4,173 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			html,
+			body {
+				height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.outer {
+				width: 600px;
+				padding: 10px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 10px;
+			}
+			#input-wrapper {
+				display: flex;
+				flex-direction: column;
+				width: 80%;
+				gap: 20px;
+			}
+			#input-wrapper input {
+				box-sizing: border-box;
+				width: 100%;
+				padding: 10px;
+				border-radius: 4px;
+				border: none;
+				background-color: rgb(238, 238, 238);
+			}
+
+			#add-student {
+				border: none;
+				box-sizing: border-box;
+				width: 100%;
+				padding: 10px;
+				border-radius: 4px;
+				background-color: rgb(94, 94, 255);
+				font-weight: 700;
+				cursor: pointer;
+			}
+			#buttons-wrapper {
+				display: flex;
+				width: 80%;
+				flex-wrap: wrap;
+				gap: 10px;
+			}
+			#buttons-wrapper button {
+				border: none;
+				box-sizing: border-box;
+				flex: 1;
+				width: 40%;
+				padding: 10px;
+				border-radius: 4px;
+				background-color: rgb(94, 94, 255);
+				font-weight: 700;
+				cursor: pointer;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="outer" class="outer">
-			<div id="marks"></div>
-			<div id=""></div>
+			<div id="input-wrapper">
+				<input type="text" id="name" placeholder="Student Name" />
+				<input id="marks" type="number" max="100" placeholder="Marks" />
+				<button id="add-student">Add Student</button>
+			</div>
+			<div id="buttons-wrapper">
+				<button id="show-all">Show All Students</button>
+				<button id="show-passing">Show Passed Students</button>
+				<button id="average-marks">Average Marks</button>
+				<button id="topper">Show Topper</button>
+			</div>
+
+			<div id="result-wrapper">
+				<div id="heading"></div>
+				<div id="result"></div>
+			</div>
 		</div>
 	</body>
+	<script>
+		const studentName = document.getElementById('name');
+		const studentMarks = document.getElementById('marks');
+		const addButton = document.getElementById('add-student');
+		const showAll = document.getElementById('show-all');
+		const showPassing = document.getElementById('show-passing');
+		const showAverage = document.getElementById('average-marks');
+		const topper = document.getElementById('topper');
+		const heading = document.getElementById('heading');
+		const result = document.getElementById('result');
+
+		let students = [];
+
+		function addStudent() {
+			if (studentName.value && studentMarks.value) {
+				students.push({
+					name: studentName.value,
+					marks: Number(studentMarks.value),
+					isPass: studentMarks.value >= 40,
+				});
+				studentName.value = '';
+				studentMarks.value = '';
+			}
+		}
+
+		function showAllStudents() {
+			heading.innerText = 'All Students';
+			result.innerHTML = '';
+
+			students.forEach(({ name, marks }) => {
+				const div = document.createElement('div');
+				div.innerHTML = `
+					<div>${name}</div>
+					<div>${marks}</div>
+				`;
+				result.appendChild(div);
+			});
+		}
+
+		function showPassStudents() {
+			heading.innerText = 'Passing Students';
+			result.innerHTML = '';
+
+			students
+				.filter(({ isPass }) => isPass)
+				.forEach(({ name, marks }) => {
+					const div = document.createElement('div');
+					div.innerHTML = `
+					<div>${name}</div>
+					<div>${marks}</div>
+				`;
+					result.appendChild(div);
+				});
+		}
+
+		function showAverageMarks() {
+			heading.innerText = 'Average Marks';
+			result.innerHTML = '';
+
+			const sum = students.reduce((acc, curr) => acc + curr.marks, 0);
+			const avg = sum / students.length;
+
+			console.log(typeof students[0].marks);
+
+			result.innerHTML = `${avg}`;
+		}
+
+		function showTopper() {
+			heading.innerText = 'Topper';
+			result.innerHTML = '';
+
+			const topperStudent = students.reduce((acc, curr) => {
+				return acc.marks > curr.marks ? acc : curr;
+			});
+
+			result.innerHTML = `<div>${topperStudent.name}</div>
+					<div>${topperStudent.marks}</div>`;
+		}
+
+		topper.addEventListener('click', showTopper);
+		showAverage.addEventListener('click', showAverageMarks);
+		showPassing.addEventListener('click', showPassStudents);
+		showAll.addEventListener('click', showAllStudents);
+		addButton.addEventListener('click', addStudent);
+	</script>
 </html>
